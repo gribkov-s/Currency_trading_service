@@ -15,8 +15,6 @@ import org.apache.spark.sql.types._
 
 object Receive_historical_currency_rates_by_api extends App {
 
-  val log4j_conf_path = System.getProperty ("user.dir") + "/src/main/resources/log4j.properties"
-  PropertyConfigurator.configure(log4j_conf_path)
 
   val spark = {
     SparkSession.builder()
@@ -24,6 +22,7 @@ object Receive_historical_currency_rates_by_api extends App {
       .getOrCreate()
   }
 
+  spark.sparkContext.setLogLevel("ERROR")
   import spark.sqlContext.implicits._
 
   /////////////////////////////////////////////////////////////////////////

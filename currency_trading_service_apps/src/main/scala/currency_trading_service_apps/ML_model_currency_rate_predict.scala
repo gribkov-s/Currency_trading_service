@@ -1,19 +1,15 @@
 package currency_trading_service_apps
 
 
-import org.apache.log4j.PropertyConfigurator
-
+import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.feature.{VectorAssembler, VectorIndexer}
 import org.apache.spark.ml.regression.DecisionTreeRegressor
-import org.apache.spark.ml.Pipeline
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
 
 
 object ML_model_currency_rate_predict extends App {
 
-  val log4j_conf_path = System.getProperty ("user.dir") + "/src/main/resources/log4j.properties"
-  PropertyConfigurator.configure(log4j_conf_path)
 
   val spark = {
     SparkSession.builder()
@@ -21,6 +17,7 @@ object ML_model_currency_rate_predict extends App {
       .getOrCreate()
   }
 
+  spark.sparkContext.setLogLevel("ERROR")
   import spark.sqlContext.implicits._
 
   ////////////////////////////////////////////////////////////////////

@@ -1,17 +1,13 @@
 package currency_trading_service_apps
 
 
-import org.apache.log4j.PropertyConfigurator
-
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.streaming._
+import org.apache.spark.sql.types._
 
 object Kafka_Consumer_read_currency_rates_from_topic extends App {
 
-  val log4j_conf_path = System.getProperty ("user.dir") + "/src/main/resources/log4j.properties"
-  PropertyConfigurator.configure(log4j_conf_path)
 
   val spark = {
     SparkSession.builder()
@@ -19,6 +15,7 @@ object Kafka_Consumer_read_currency_rates_from_topic extends App {
       .getOrCreate()
   }
 
+  spark.sparkContext.setLogLevel("ERROR")
   import spark.sqlContext.implicits._
 
   /////////////////////////////////////////////////////////////////////////
@@ -35,7 +32,7 @@ object Kafka_Consumer_read_currency_rates_from_topic extends App {
     .withColumnRenamed("currency","currency_code")
     .select($"currency_code", $"scale")
 
-  //////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
 
   val input_stream = spark.readStream
     .format("kafka")
@@ -67,7 +64,7 @@ object Kafka_Consumer_read_currency_rates_from_topic extends App {
 
   ////////////////////////////////////////////////////////////////////////////
 
-  var interval_sec = args(0).toInt
+  var interval_sec = 10
 
   data.writeStream.foreachBatch {
     (dataset: DataFrame, batchId: Long) =>

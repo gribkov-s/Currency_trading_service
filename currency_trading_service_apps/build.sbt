@@ -9,13 +9,10 @@ scalaVersion := "2.11.12"
 
 libraryDependencies ++= Seq(
 
-      "org.slf4j" % "slf4j-api" % "1.7.30",
-      "org.slf4j" % "slf4j-log4j12" % "1.7.30",
-
-      "org.apache.spark" %% "spark-sql" % "2.4.0",
-      "org.apache.spark" %% "spark-streaming-kafka-0-10" % "2.4.0",
-      "org.apache.spark" %% "spark-sql-kafka-0-10" % "2.4.0",
-      "org.apache.spark" %% "spark-mllib" % "2.4.0",
+      "org.apache.spark" %% "spark-sql" % "2.4.4",
+      "org.apache.spark" % "spark-streaming-kafka-0-10_2.11" % "2.4.4",
+      "org.apache.spark" % "spark-sql-kafka-0-10_2.11" % "2.4.4",
+      "org.apache.spark" %% "spark-mllib" % "2.4.4",
       "org.postgresql" % "postgresql" % "42.2.10",
 
       "mrpowers" % "spark-daria" % "0.35.2-s_2.11",
